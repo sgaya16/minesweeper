@@ -6,7 +6,7 @@ int main() {
 
 
 
-    sf::RenderWindow window(sf::VideoMode(800, 600),"Hello SFML");
+    sf::RenderWindow window(sf::VideoMode(800, 600),"Minesweeper");
 
     // Load a sprite to display
     sf::Texture texture;
@@ -14,6 +14,18 @@ int main() {
         return EXIT_FAILURE;
     }
     sf::Sprite sprite(texture);
+
+    vector<vector<sf::Sprite>> hiddenTiles;
+
+    for (int i = 0; i < 16 ; i++) {
+        hiddenTiles.push_back(vector<sf::Sprite>());
+        for (int j = 0; j < 25; j++){
+            hiddenTiles[i].push_back(sprite);
+            sprite.move(32,0);
+        }
+        sprite.setPosition(0,sprite.getPosition().y);
+        sprite.move(0,32);
+    }
 
 
 
@@ -30,7 +42,11 @@ int main() {
 
             window.clear(sf::Color::Black);
 
-            window.draw(sprite);
+            for (int i = 0; i < 16; i++) {
+                for (int j = 0; j < 25; j++) {
+                    window.draw(hiddenTiles[i][j]);
+                }
+            }
 
             window.display();
 
