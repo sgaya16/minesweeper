@@ -6,9 +6,25 @@
 
 #IncludeRegexTransform: 
 
+/Users/saragaya/CLionProjects/SFMLDemo/Board.h
+iostream
+-
+SFML/Graphics.hpp
+-
+vector
+-
+string
+-
+
 /Users/saragaya/CLionProjects/SFMLDemo/main.cpp
 SFML/Graphics.hpp
 -
 iostream
 -
+map
+-
+string
+-
+Board.h
+/Users/saragaya/CLionProjects/SFMLDemo/Board.h
 

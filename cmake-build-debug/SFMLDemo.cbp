@@ -84,6 +84,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/saragaya/CLionProjects/SFMLDemo/Board.cpp">
+			<Option target="SFMLDemo"/>
+		</Unit>
+		<Unit filename="/Users/saragaya/CLionProjects/SFMLDemo/Board.h">
+			<Option target="SFMLDemo"/>
+		</Unit>
 		<Unit filename="/Users/saragaya/CLionProjects/SFMLDemo/main.cpp">
 			<Option target="SFMLDemo"/>
 		</Unit>
