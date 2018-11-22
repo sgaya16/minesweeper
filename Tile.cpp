@@ -28,12 +28,13 @@ void Tile::RemoveFlag() {
 bool Tile::TileClicked(int clickType) {
     isClicked = true;
 
-    if (isMine == true) {
-        cout << "mine already exploded!" << endl;
-        return false;
-    }
+
 
     if (clickType == LEFT_CLICK) {
+        if (isMine == true) {
+            cout << "mine exploded!" << endl;
+            return false;
+        }
         phase = REVEALED_TILE;
     }
     else if (clickType == RIGHT_CLICK) {
@@ -55,6 +56,23 @@ sf::Sprite* Tile::CurrentSprite() {
         return &revealedTile;
     }
     else {
-        return &flag;
+        return  &flag;
+    }
+}
+
+void Tile::draw(float x, float y, sf::RenderWindow* window) {
+    if (phase == HIDDEN_TILE) {
+        hiddenTile.setPosition(x,y);
+        window -> draw(hiddenTile);
+    }
+    else if (phase == REVEALED_TILE) {
+        revealedTile.setPosition(x,y);
+        window -> draw(revealedTile);
+    }
+    else {
+        hiddenTile.setPosition(x,y);
+        window -> draw(hiddenTile);
+        flag.setPosition(x,y);
+        window -> draw(flag);
     }
 }

@@ -127,9 +127,7 @@ void Board::DrawAllTiles(sf::RenderWindow *window) {
         for (int j = 0; j < boardWidth; j++) {
             float y = i * tileWidth * 1.0f;
             float x = j * tileWidth * 1.0f;
-            tiles[i][j].CurrentSprite()->setPosition(x, y);
-            window->draw(*tiles[i][j].CurrentSprite());
-
+            tiles[i][j].draw(x,y, window);
         }
 
     }

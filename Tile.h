@@ -16,6 +16,7 @@ struct Tile {
     void RemoveFlag();
     bool TileClicked(int clickType);
     sf::Sprite* CurrentSprite();
+    void draw(float x, float y, sf::RenderWindow* window);
 
 
     //variables:

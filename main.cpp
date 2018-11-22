@@ -11,8 +11,8 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600),"Minesweeper");
 
     map<string, sf::Texture> textures; sf::Vector2i mousePos; sf::Vector2f mouseFloat;
-    sf::Texture texture; Tile tileObject; Board boardObject;
-
+    sf::Image image = sf::Image();
+    image.loadFromFile("images/flag.png");
     textures["hiddenTile"].loadFromFile("images/tile_hidden.png");
     textures["revealedTile"].loadFromFile("images/tile_revealed.png");
     textures["number1"].loadFromFile("images/number_1.png");
@@ -24,6 +24,8 @@ int main() {
     textures["number7"].loadFromFile("images/number_7.png");
     textures["number8"].loadFromFile("images/number_8.png");
     textures["flag"].loadFromFile("images/flag.png");
+//    textures["flag"].loadFromFile("images/tile_hidden.png");
+//    textures["flag"].update(image,0,0);
     textures["mine"].loadFromFile("images/mine.png");
     textures["winFace"].loadFromFile("images/face_win.png");
     textures["happyFace"].loadFromFile("images/face_happy.png");
@@ -53,10 +55,13 @@ int main() {
                     cout << "left button pressed" << endl;
                     mousePos = sf::Mouse::getPosition(window);
                     mouseFloat = sf::Vector2f(mousePos);
-                    if (tileObject.hiddenTile.getGlobalBounds().contains(mouseFloat)) {
-                        tileObject.TileClicked(1);
-                    }
-
+                    mineSweeper.BoardClick(mouseFloat, 0);
+                }
+                else if (event.mouseButton.button == sf::Mouse::Right) {
+                    cout << "right button clicked" << endl;
+                    mousePos = sf::Mouse::getPosition(window);
+                    mouseFloat = sf::Vector2f(mousePos);
+                    mineSweeper.BoardClick(mouseFloat, 1);
                 }
             }
 
