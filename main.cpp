@@ -3,28 +3,14 @@
 #include <map>
 #include <string>
 #include "Board.h"
+#include "Tile.h"
 using namespace std;
-
-
-struct Tile {
-
-    //functions:
-    Tile () {};
-
-    sf::Sprite hiddenTile;
-    sf::Sprite revealedTile;
-    sf::Sprite flag;
-
-};
-
-
-
 
 int main() {
 
     sf::RenderWindow window(sf::VideoMode(800, 600),"Minesweeper");
 
-    map<string, sf::Texture> textures;
+    map<string, sf::Texture> textures; sf::Vector2i mousePos; sf::Vector2f mouseFloat;
     sf::Texture texture; Tile tileObject; Board boardObject;
 
     textures["hiddenTile"].loadFromFile("images/tile_hidden.png");
@@ -47,57 +33,7 @@ int main() {
     textures["test1"].loadFromFile("images/test_1.png");
     textures["test2"].loadFromFile("images/test_2.png");
 
-    tileObject.hiddenTile.setTexture(textures["hiddenTile"]);
-    tileObject.revealedTile.setTexture(textures["revealedTile"]);
-    tileObject.flag.setTexture(textures["flag"]);
-
-    for (int i = 0; i < 16; i++) {
-        boardObject.hiddenTiles.push_back(vector<sf::Sprite>());
-        for (int j = 0; j < 25; j++) {
-            boardObject.hiddenTiles[i].push_back(tileObject.hiddenTile);
-            tileObject.hiddenTile.move(32, 0);
-        }
-        tileObject.hiddenTile.setPosition(0, tileObject.hiddenTile.getPosition().y);
-        tileObject.hiddenTile.move(0, 32);
-    }
-
-    /*
-    //sf::Texture texture;
-
-    if (!texture.loadFromFile("images/tile_hidden.png")) {
-        throw EXIT_FAILURE;
-    }
-    sf::Sprite sprite(texture);
-
-    vector<vector<sf::Sprite>> hiddenTiles;
-
-    for (int i = 0; i < 16; i++) {
-        hiddenTiles.push_back(vector<sf::Sprite>());
-        for (int j = 0; j < 25; j++) {
-            hiddenTiles[i].push_back(sprite);
-            sprite.move(32, 0);
-        }
-        sprite.setPosition(0, sprite.getPosition().y);
-        sprite.move(0, 32);
-    }
-
-
-    /*map<int, sf::Sprite> hiddenTiles;
-    int movex = 0;
-    int movey = 0;
-    for (int i = 0; i < 400; i++) {
-        hiddenTiles[i] = sprite;
-        movey = sprite.getPosition().y;
-        if (i % 16 == 0 && i != 0){
-            movex += 32;
-            movey = 0;
-        }
-        sprite.setPosition(movex, 32);
-        sprite.move(0, 32);
-        cout << "sprite added" << endl;
-    }*/
-
-
+    Board mineSweeper(16, 25, 50, &textures["hiddenTile"], &textures["revealedTile"], &textures["flag"]);
 
 
     while(window.isOpen()){
@@ -106,26 +42,27 @@ int main() {
 
         while(window.pollEvent(event)) {
 
+            //if the window is closed
             if(event.type == sf::Event::Closed){
                 window.close();
 
             }
+            //if the left mouse button is clicked
+            else if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    cout << "left button pressed" << endl;
+                    mousePos = sf::Mouse::getPosition(window);
+                    mouseFloat = sf::Vector2f(mousePos);
+                    if (tileObject.hiddenTile.getGlobalBounds().contains(mouseFloat)) {
+                        tileObject.TileClicked(1);
+                    }
+
+                }
+            }
 
             window.clear();
+            mineSweeper.DrawAllTiles(&window);
 
-            for (int i = 0; i < 16; i++) {
-                for (int j = 0; j < 25; j++) {
-                    window.draw(boardObject.hiddenTiles[i][j]);
-                }
-            }
-
-
-            /*for (int i = 0; i < 16; i++) {
-                for (int j = 0; j < 25; j++) {
-                    window.draw(hiddenTiles[i][j]);
-                }
-            }
-             */
 
             window.display();
 

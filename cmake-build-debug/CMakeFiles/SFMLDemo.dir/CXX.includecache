@@ -6,6 +6,22 @@
 
 #IncludeRegexTransform: 
 
+/Users/saragaya/CLionProjects/SFMLDemo/Board.cpp
+iostream
+-
+vector
+-
+string
+-
+map
+-
+random
+-
+Board.h
+/Users/saragaya/CLionProjects/SFMLDemo/Board.h
+SFML/Graphics.hpp
+-
+
 /Users/saragaya/CLionProjects/SFMLDemo/Board.h
 iostream
 -
@@ -13,18 +29,24 @@ SFML/Graphics.hpp
 -
 vector
 -
+map
+-
+random
+-
 string
 -
+Tile.h
+/Users/saragaya/CLionProjects/SFMLDemo/Tile.h
 
-/Users/saragaya/CLionProjects/SFMLDemo/main.cpp
+/Users/saragaya/CLionProjects/SFMLDemo/Tile.h
 SFML/Graphics.hpp
 -
 iostream
+-
+vector
 -
 map
 -
 string
 -
-Board.h
-/Users/saragaya/CLionProjects/SFMLDemo/Board.h
 

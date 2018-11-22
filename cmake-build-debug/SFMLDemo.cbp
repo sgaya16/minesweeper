@@ -90,6 +90,12 @@
 		<Unit filename="/Users/saragaya/CLionProjects/SFMLDemo/Board.h">
 			<Option target="SFMLDemo"/>
 		</Unit>
+		<Unit filename="/Users/saragaya/CLionProjects/SFMLDemo/Tile.cpp">
+			<Option target="SFMLDemo"/>
+		</Unit>
+		<Unit filename="/Users/saragaya/CLionProjects/SFMLDemo/Tile.h">
+			<Option target="SFMLDemo"/>
+		</Unit>
 		<Unit filename="/Users/saragaya/CLionProjects/SFMLDemo/main.cpp">
 			<Option target="SFMLDemo"/>
 		</Unit>

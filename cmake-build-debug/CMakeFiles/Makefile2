@@ -71,7 +71,7 @@ CMAKE_BINARY_DIR = /Users/saragaya/CLionProjects/SFMLDemo/cmake-build-debug
 CMakeFiles/SFMLDemo.dir/all:
 	$(MAKE) -f CMakeFiles/SFMLDemo.dir/build.make CMakeFiles/SFMLDemo.dir/depend
 	$(MAKE) -f CMakeFiles/SFMLDemo.dir/build.make CMakeFiles/SFMLDemo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/saragaya/CLionProjects/SFMLDemo/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target SFMLDemo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/saragaya/CLionProjects/SFMLDemo/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target SFMLDemo"
 .PHONY : CMakeFiles/SFMLDemo.dir/all
 
 # Include target in all.
@@ -81,7 +81,7 @@ all: CMakeFiles/SFMLDemo.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SFMLDemo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/saragaya/CLionProjects/SFMLDemo/cmake-build-debug/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/saragaya/CLionProjects/SFMLDemo/cmake-build-debug/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SFMLDemo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/saragaya/CLionProjects/SFMLDemo/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/SFMLDemo.dir/rule

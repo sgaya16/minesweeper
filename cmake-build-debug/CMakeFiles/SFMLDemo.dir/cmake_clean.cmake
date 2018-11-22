@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/SFMLDemo.dir/main.cpp.o"
   "CMakeFiles/SFMLDemo.dir/Board.cpp.o"
+  "CMakeFiles/SFMLDemo.dir/Tile.cpp.o"
   "SFMLDemo.pdb"
   "SFMLDemo"
 )
