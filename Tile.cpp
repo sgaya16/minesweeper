@@ -7,35 +7,29 @@
 #include "Tile.h"
 using namespace std;
 
-Tile::Tile(sf::Texture *hiddenText, sf::Texture *revealedText, sf::Texture *flagText) {
+Tile::Tile(sf::Texture *hiddenText, sf::Texture *revealedText, sf::Texture *flagText, sf::Texture *mine) {
     hiddenTile.setTexture(*hiddenText);
     revealedTile.setTexture(*revealedText);
     flag.setTexture(*flagText);
+    this->mine.setTexture(*mine);
 }
 
 void Tile::TileIsMine() {
     isMine = true;
 }
 
-void Tile::SetFlag() {
-    isFlag = true;
-}
-
-void Tile::RemoveFlag() {
-    isFlag = false;
-}
-
 bool Tile::TileClicked(int clickType) {
     isClicked = true;
 
-
-
     if (clickType == LEFT_CLICK) {
         if (isMine == true) {
-            cout << "mine exploded!" << endl;
+            phase = MINE;
+            cout << "Mine exploded!" << endl;
             return false;
         }
-        phase = REVEALED_TILE;
+        else {
+            phase = REVEALED_TILE;
+        }
     }
     else if (clickType == RIGHT_CLICK) {
         if (phase == FLAG) {
@@ -55,24 +49,42 @@ sf::Sprite* Tile::CurrentSprite() {
     else if (phase == REVEALED_TILE) {
         return &revealedTile;
     }
+    else if (phase == MINE) {
+        return &mine;
+    }
     else {
         return  &flag;
     }
 }
 
-void Tile::draw(float x, float y, sf::RenderWindow* window) {
-    if (phase == HIDDEN_TILE) {
-        hiddenTile.setPosition(x,y);
-        window -> draw(hiddenTile);
-    }
-    else if (phase == REVEALED_TILE) {
-        revealedTile.setPosition(x,y);
-        window -> draw(revealedTile);
-    }
-    else {
-        hiddenTile.setPosition(x,y);
-        window -> draw(hiddenTile);
-        flag.setPosition(x,y);
-        window -> draw(flag);
-    }
+void Tile::draw(float x, float y, sf::RenderWindow* window, bool debugMode) {
+       if (debugMode == true && isMine == true && isClicked == false) {
+           revealedTile.setPosition(x, y);
+           window->draw(revealedTile);
+           mine.setPosition(x, y);
+           window->draw(mine);
+       }
+       else {
+           if (phase == HIDDEN_TILE) {
+               hiddenTile.setPosition(x, y);
+               window->draw(hiddenTile);
+           }
+           else if (phase == REVEALED_TILE) {
+               revealedTile.setPosition(x, y);
+               window->draw(revealedTile);
+           }
+           else if (phase == MINE) {
+               revealedTile.setPosition(x, y);
+               window->draw(revealedTile);
+               mine.setPosition(x, y);
+               window->draw(mine);
+           }
+           else {
+               hiddenTile.setPosition(x, y);
+               window->draw(hiddenTile);
+               flag.setPosition(x, y);
+               window->draw(flag);
+           }
+       }
+
 }

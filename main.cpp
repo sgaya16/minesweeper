@@ -10,32 +10,31 @@ int main() {
 
     sf::RenderWindow window(sf::VideoMode(800, 600),"Minesweeper");
 
-    map<string, sf::Texture> textures; sf::Vector2i mousePos; sf::Vector2f mouseFloat;
-    sf::Image image = sf::Image();
-    image.loadFromFile("images/flag.png");
-    textures["hiddenTile"].loadFromFile("images/tile_hidden.png");
-    textures["revealedTile"].loadFromFile("images/tile_revealed.png");
-    textures["number1"].loadFromFile("images/number_1.png");
-    textures["number2"].loadFromFile("images/number_2.png");
-    textures["number3"].loadFromFile("images/number_3.png");
-    textures["number4"].loadFromFile("images/number_4.png");
-    textures["number5"].loadFromFile("images/number_5.png");
-    textures["number6"].loadFromFile("images/number_6.png");
-    textures["number7"].loadFromFile("images/number_7.png");
-    textures["number8"].loadFromFile("images/number_8.png");
-    textures["flag"].loadFromFile("images/flag.png");
-//    textures["flag"].loadFromFile("images/tile_hidden.png");
-//    textures["flag"].update(image,0,0);
-    textures["mine"].loadFromFile("images/mine.png");
-    textures["winFace"].loadFromFile("images/face_win.png");
-    textures["happyFace"].loadFromFile("images/face_happy.png");
-    textures["loseFace"].loadFromFile("images/face_lose.png");
-    textures["digits"].loadFromFile("images/digits.png");
-    textures["debug"].loadFromFile("images/debug.png");
-    textures["test1"].loadFromFile("images/test_1.png");
-    textures["test2"].loadFromFile("images/test_2.png");
+    sf::Vector2i mousePos; sf::Vector2f mouseFloat;
+//    map<string, sf::Texture> textures; sf::Vector2i mousePos; sf::Vector2f mouseFloat;
+//    sf::Image image = sf::Image();
+//    image.loadFromFile("images/flag.png");
+//    textures["hiddenTile"].loadFromFile("images/tile_hidden.png");
+//    textures["revealedTile"].loadFromFile("images/tile_revealed.png");
+//    textures["number1"].loadFromFile("images/number_1.png");
+//    textures["number2"].loadFromFile("images/number_2.png");
+//    textures["number3"].loadFromFile("images/number_3.png");
+//    textures["number4"].loadFromFile("images/number_4.png");
+//    textures["number5"].loadFromFile("images/number_5.png");
+//    textures["number6"].loadFromFile("images/number_6.png");
+//    textures["number7"].loadFromFile("images/number_7.png");
+//    textures["number8"].loadFromFile("images/number_8.png");
+//    textures["flag"].loadFromFile("images/flag.png");
+//    textures["mine"].loadFromFile("images/mine.png");
+//    textures["winFace"].loadFromFile("images/face_win.png");
+//    textures["happyFace"].loadFromFile("images/face_happy.png");
+//    textures["loseFace"].loadFromFile("images/face_lose.png");
+//    textures["digits"].loadFromFile("images/digits.png");
+//    textures["debug"].loadFromFile("images/debug.png");
+//    textures["test1"].loadFromFile("images/test_1.png");
+//    textures["test2"].loadFromFile("images/test_2.png");
 
-    Board mineSweeper(16, 25, 50, &textures["hiddenTile"], &textures["revealedTile"], &textures["flag"]);
+    Board mineSweeper(16, 25, 50);
 
 
     while(window.isOpen()){

@@ -38,22 +38,6 @@ string
 Tile.h
 /Users/saragaya/CLionProjects/SFMLDemo/Tile.h
 
-/Users/saragaya/CLionProjects/SFMLDemo/Tile.cpp
-SFML/Graphics.hpp
--
-iostream
--
-map
--
-vector
--
-string
--
-random
--
-Tile.h
-/Users/saragaya/CLionProjects/SFMLDemo/Tile.h
-
 /Users/saragaya/CLionProjects/SFMLDemo/Tile.h
 SFML/Graphics.hpp
 -
