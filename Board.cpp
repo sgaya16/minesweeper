@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <string>
 #include <map>
@@ -99,6 +100,50 @@ void Board::SetMines() {
             tiles[x][y].TileIsMine();
         }
     }
+}
+
+void Board::LoadTestOne() {
+    ifstream testOne("boards/testboard.brd");
+    string substr;
+    int row = 0; int column = 0;
+
+    if (!testOne.good()) {
+        cout << "unable to load test 1" << endl;
+    }
+
+
+    while (getline(testOne, substr)) {
+        for (column = 0; column < 25; column++) {
+            if (substr[column] == '1') {
+                tiles[row][column].TileIsMine();
+            }
+        }
+        row++;
+    }
+
+    testOne.close();
+}
+
+void Board::LoadTestTwo() {
+    ifstream testTwo("boards/testboard2.brd");
+    string substr;
+    int row = 0; int column = 0;
+
+    if (!testTwo.good()) {
+        cout << "unable to load test 1" << endl;
+    }
+
+
+    while (getline(testTwo, substr)) {
+        for (column = 0; column < 25; column++) {
+            if (substr[column] == '1') {
+                tiles[row][column].TileIsMine();
+            }
+        }
+        row++;
+    }
+
+    testTwo.close();
 }
 
 void Board::UpdateMineCount() {
@@ -224,14 +269,20 @@ bool Board::BoardClick(sf::Vector2f mousePos, int clickType) {
     if (clickType == LEFT_CLICK) {
         if (debugButton.getGlobalBounds().contains(mousePos)) {
             debugMode = !debugMode;
+            cout << "debug button clicked restarted" << endl;
         }
         else if (happyButton.getGlobalBounds().contains(mousePos)) {
             RestartGame();
+            cout << "game restarted" << endl;
         }
         else if (test1.getGlobalBounds().contains(mousePos)) {
+            CleanAllTiles();
+            LoadTestOne();
             cout << "test 1 clicked" << endl;
         }
         else if ((test2.getGlobalBounds().contains(mousePos))) {
+            CleanAllTiles();
+            LoadTestTwo();
             cout << "test 2 clicked" << endl;
         }
     }

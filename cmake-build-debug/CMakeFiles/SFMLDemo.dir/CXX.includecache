@@ -9,6 +9,8 @@
 /Users/saragaya/CLionProjects/SFMLDemo/Board.cpp
 iostream
 -
+fstream
+-
 vector
 -
 string
