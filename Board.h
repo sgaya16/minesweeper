@@ -14,11 +14,14 @@ struct Board {
     //functions:
     Board() {};
     Board(int height, int width, int numMines);
+    void SetMines();
     void DrawAllTiles(sf::RenderWindow* window);
+    void CleanAllTiles();
     void RestartGame();
-    void GameOver();
-    void UpdateNumberOfMines();
-    void findAdjacentTiles();
+    void UpdateMineCount();
+    void LoadTestOne();
+    void LoadTestTwo();
+    void FindAdjacentTiles();
     bool BoardClick(sf::Vector2f mousePos, int clickType);
 
     //variables:
@@ -27,10 +30,12 @@ struct Board {
     sf::Sprite loseButton;
     sf::Sprite winButton;
     sf::Sprite debugButton;
+    sf::Sprite place1; sf::Sprite place2; sf::Sprite place3;
     const int LEFT_CLICK = 0;
     const int RIGHT_CLICK = 1;
     sf::Sprite test1; sf::Sprite test2;
     bool debugMode = false;
+    bool restartGame = false;
     int tileWidth = 32;
     int boardWidth = 0; int boardHeight = 0;
     int mineCount = 0;

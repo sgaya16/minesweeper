@@ -34,9 +34,11 @@ bool Tile::TileClicked(int clickType) {
     else if (clickType == RIGHT_CLICK) {
         if (phase == FLAG) {
             phase = HIDDEN_TILE;
+            isFlag = false;
         }
         else {
             phase = FLAG;
+            isFlag = true;
         }
     }
     return true;
@@ -53,6 +55,7 @@ sf::Sprite* Tile::CurrentSprite() {
         return &mine;
     }
     else {
+
         return  &flag;
     }
 }

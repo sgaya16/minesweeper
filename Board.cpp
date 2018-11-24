@@ -17,6 +17,7 @@ int Random(int min, int max) {
 
 //board constructor
 Board::Board(int height, int width, int numMines) {
+
     textures["hiddenTile"].loadFromFile("images/tile_hidden.png");
     textures["revealedTile"].loadFromFile("images/tile_revealed.png");
     textures["number1"].loadFromFile("images/number_1.png");
@@ -32,14 +33,34 @@ Board::Board(int height, int width, int numMines) {
     textures["winFace"].loadFromFile("images/face_win.png");
     textures["happyFace"].loadFromFile("images/face_happy.png");
     textures["loseFace"].loadFromFile("images/face_lose.png");
-    textures["digits"].loadFromFile("images/digits.png");
     textures["debug"].loadFromFile("images/debug.png");
     textures["test1"].loadFromFile("images/test_1.png");
     textures["test2"].loadFromFile("images/test_2.png");
 
+    textures["digit0"].loadFromFile("images/digits.png", sf::IntRect(0, 0, 21, 32));
+    textures["digit1"].loadFromFile("images/digits.png", sf::IntRect(21, 0, 21, 32));
+    textures["digit2"].loadFromFile("images/digits.png", sf::IntRect(42, 0, 21, 32));
+    textures["digit3"].loadFromFile("images/digits.png", sf::IntRect(63, 0, 21, 32));
+    textures["digit4"].loadFromFile("images/digits.png", sf::IntRect(84, 0, 21, 32));
+    textures["digit5"].loadFromFile("images/digits.png", sf::IntRect(105, 0, 21, 32));
+    textures["digit6"].loadFromFile("images/digits.png", sf::IntRect(126, 0, 21, 32));
+    textures["digit7"].loadFromFile("images/digits.png", sf::IntRect(147, 0, 21, 32));
+    textures["digit8"].loadFromFile("images/digits.png", sf::IntRect(168, 0, 21, 32));
+    textures["digit9"].loadFromFile("images/digits.png", sf::IntRect(189, 0, 21, 32));
+
     this->boardHeight = height;
     this->boardWidth = width;
     this->mineCount = numMines;
+
+    place1.setTexture(textures["digit0"]);
+    place1.setPosition(0, 16 * tileWidth);
+
+    place2.setTexture(textures["digit5"]);
+    place2.setPosition(21, 16 * tileWidth);
+
+    place3.setTexture(textures["digit0"]);
+    place3.setPosition(42, 16 * tileWidth);
+
     debugButton.setTexture(textures["debug"]);
     debugButton.setPosition(16.5 * tileWidth, 16 * tileWidth);
 
@@ -58,10 +79,17 @@ Board::Board(int height, int width, int numMines) {
     for (int i = 0; i < boardHeight; i++) {
         tiles.push_back(vector<Tile>());
         for (int j = 0; j < boardWidth; j++) {
-            tiles[i].push_back(Tile(&textures["hiddenTile"], &textures["revealedTile"], &textures["flag"], &textures["mine"]));
+            tiles[i].push_back(Tile(&textures["hiddenTile"], &textures["revealedTile"],
+                                    &textures["flag"], &textures["mine"]));
         }
     }
 
+    SetMines();
+
+    cout << "board constructed!" << endl;
+}
+
+void Board::SetMines() {
     for (int i = 0; i < 50; i++) {
         int x = Random(0, 15); int y = Random(0, 24);
         if (tiles[x][y].isMine) {
@@ -71,13 +99,38 @@ Board::Board(int height, int width, int numMines) {
             tiles[x][y].TileIsMine();
         }
     }
+}
 
-    cout << "board constructed!" << endl;
+void Board::UpdateMineCount() {
+    int currentFlagCount = 0;
+
+    for (int i = 0; i < boardHeight; i++) {
+        for (int j = 0; j < boardWidth; j++) {
+            if (tiles[i][j].isFlag == true) {
+               currentFlagCount++;
+            }
+        }
+    }
+
+    int updatedMineCount = mineCount - currentFlagCount;
+
+    int placeThree = updatedMineCount % 10;
+    updatedMineCount /= 10;
+    int placeTwo = updatedMineCount % 10;
+    updatedMineCount /= 10;
+    int placeOne = updatedMineCount % 10;
+    string placeThreeString = "digit" + to_string(placeThree);
+    string placeTwoString = "digit" + to_string(placeTwo);
+    string placeOneString = "digit" + to_string(placeOne);
+
+    place3.setTexture(textures[placeThreeString]);
+    place2.setTexture(textures[placeTwoString]);
+    place1.setTexture(textures[placeOneString]);
 }
 
 
 //gets adjacent tiles for each individual tile
-void Board::findAdjacentTiles() {
+void Board::FindAdjacentTiles() {
 
     for (int i = 0; i < boardHeight; i++) {
         for (int j = 0; j < boardWidth; j++) {
@@ -141,7 +194,22 @@ void Board::findAdjacentTiles() {
             }
         }
     }
+}
 
+void Board::RestartGame() {
+    CleanAllTiles();
+    SetMines();
+}
+
+void Board::CleanAllTiles() {
+    for (int i = 0; i < boardHeight; i++) {
+        for (int j = 0; j < boardWidth; j++) {
+            tiles[i][j].phase = 0;
+            tiles[i][j].isMine = false;
+            tiles[i][j].isClicked = false;
+            tiles[i][j].isFlag = false;
+        }
+    }
 }
 
 bool Board::BoardClick(sf::Vector2f mousePos, int clickType) {
@@ -157,6 +225,9 @@ bool Board::BoardClick(sf::Vector2f mousePos, int clickType) {
         if (debugButton.getGlobalBounds().contains(mousePos)) {
             debugMode = !debugMode;
         }
+        else if (happyButton.getGlobalBounds().contains(mousePos)) {
+            RestartGame();
+        }
         else if (test1.getGlobalBounds().contains(mousePos)) {
             cout << "test 1 clicked" << endl;
         }
@@ -164,6 +235,7 @@ bool Board::BoardClick(sf::Vector2f mousePos, int clickType) {
             cout << "test 2 clicked" << endl;
         }
     }
+    return true;
 }
 
 
@@ -175,6 +247,10 @@ void Board::DrawAllTiles(sf::RenderWindow *window) {
             tiles[i][j].draw(x,y, window, debugMode);
         }
     }
+    UpdateMineCount();
+    window->draw(place1);
+    window->draw(place2);
+    window->draw(place3);
     window->draw(happyButton);
     window->draw(debugButton);
     window->draw(test1);
