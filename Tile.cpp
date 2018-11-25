@@ -4,18 +4,68 @@
 #include <vector>
 #include <string>
 #include <random>
+#include <queue>
+#include <unordered_set>
 #include "Tile.h"
 using namespace std;
 
-Tile::Tile(sf::Texture *hiddenText, sf::Texture *revealedText, sf::Texture *flagText, sf::Texture *mine) {
+Tile::Tile(sf::Texture *hiddenText, sf::Texture *revealedText, sf::Texture *flagText, sf::Texture *mine,
+           sf::Texture *num1, sf::Texture *num2, sf::Texture *num3, sf::Texture *num4, sf::Texture *num5,
+           sf::Texture *num6, sf::Texture *num7, sf::Texture *num8)
+{
+
     hiddenTile.setTexture(*hiddenText);
     revealedTile.setTexture(*revealedText);
     flag.setTexture(*flagText);
     this->mine.setTexture(*mine);
+    this->numOne.setTexture(*num1);
+    this->numTwo.setTexture(*num2);
+    this->numThree.setTexture(*num3);
+    this->numFour.setTexture(*num4);
+    this->numFive.setTexture(*num5);
+    this->numSix.setTexture(*num6);
+    this->numSeven.setTexture(*num7);
+    this->numEight.setTexture(*num8);
 }
 
 void Tile::TileIsMine() {
     isMine = true;
+}
+
+void Tile::GetAdjacentMine() {
+    queue <Tile *> Queue;
+    unordered_set <Tile *> visited;
+
+    Queue.push(this);
+
+    while (!Queue.empty()) {
+        Tile *currTile = Queue.front();
+        visited.insert(currTile);
+        int mineCount = 0;
+
+        for (Tile *adjTile : currTile->adjacentTiles) {
+            if (adjTile->isMine) {
+                mineCount++;
+            }
+        }
+        currTile->adjMines = mineCount;
+
+        if (mineCount == 0) {
+
+            for (Tile *adjTile : currTile->adjacentTiles) {
+                const bool contains = visited.find(adjTile) != visited.end();
+                if (!contains) {
+                    Queue.push(adjTile);
+                }
+            }
+        }
+
+        if (!currTile->isMine) {
+            currTile->phase = REVEALED_TILE;
+        }
+
+        Queue.pop();
+    }
 }
 
 bool Tile::TileClicked(int clickType) {
@@ -29,6 +79,7 @@ bool Tile::TileClicked(int clickType) {
         }
         else {
             phase = REVEALED_TILE;
+            GetAdjacentMine();
         }
     }
     else if (clickType == RIGHT_CLICK) {
@@ -44,6 +95,8 @@ bool Tile::TileClicked(int clickType) {
     return true;
 }
 
+
+
 sf::Sprite* Tile::CurrentSprite() {
     if (phase == HIDDEN_TILE) {
         return &hiddenTile;
@@ -55,7 +108,6 @@ sf::Sprite* Tile::CurrentSprite() {
         return &mine;
     }
     else {
-
         return  &flag;
     }
 }
@@ -75,6 +127,41 @@ void Tile::draw(float x, float y, sf::RenderWindow* window, bool debugMode) {
            else if (phase == REVEALED_TILE) {
                revealedTile.setPosition(x, y);
                window->draw(revealedTile);
+
+               if (adjMines > 0) {
+                    if (adjMines == 1) {
+                        numOne.setPosition(x, y);
+                        window->draw(numOne);
+                    }
+                    else if (adjMines == 2) {
+                        numTwo.setPosition(x, y);
+                        window->draw(numTwo);
+                    }
+                    else if (adjMines == 3) {
+                        numThree.setPosition(x, y);
+                        window->draw(numThree);
+                    }
+                    else if (adjMines == 4) {
+                        numFour.setPosition(x, y);
+                        window->draw(numFour);
+                    }
+                    else if (adjMines == 5) {
+                        numFive.setPosition(x, y);
+                        window->draw(numFive);
+                    }
+                    else if (adjMines == 6) {
+                        numSix.setPosition(x, y);
+                        window->draw(numSix);
+                    }
+                    else if (adjMines == 7) {
+                        numSeven.setPosition(x, y);
+                        window->draw(numSeven);
+                    }
+                    else if (adjMines == 8) {
+                        numEight.setPosition(x, y);
+                        window->draw(numEight);
+                    }
+               }
            }
            else if (phase == MINE) {
                revealedTile.setPosition(x, y);

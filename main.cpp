@@ -14,7 +14,6 @@ int main() {
 
     Board mineSweeper(16, 25, 50);
 
-
     while(window.isOpen()){
 
         sf::Event event;
@@ -52,7 +51,5 @@ int main() {
         }
 
     }
-
     return 0;
-
 }

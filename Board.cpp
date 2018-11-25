@@ -81,16 +81,19 @@ Board::Board(int height, int width, int numMines) {
         tiles.push_back(vector<Tile>());
         for (int j = 0; j < boardWidth; j++) {
             tiles[i].push_back(Tile(&textures["hiddenTile"], &textures["revealedTile"],
-                                    &textures["flag"], &textures["mine"]));
+                                    &textures["flag"], &textures["mine"], &textures["number1"], &textures["number2"],
+                                    &textures["number3"], &textures["number4"], &textures["number5"],
+                                    &textures["number6"], &textures["number7"],  &textures["number8"]));
         }
     }
+    AddAdjacentTiles();
 
-    SetMines();
+    SetBoard();
 
     cout << "board constructed!" << endl;
 }
 
-void Board::SetMines() {
+void Board::SetBoard() {
     for (int i = 0; i < 50; i++) {
         int x = Random(0, 15); int y = Random(0, 24);
         if (tiles[x][y].isMine) {
@@ -175,7 +178,7 @@ void Board::UpdateMineCount() {
 
 
 //gets adjacent tiles for each individual tile
-void Board::FindAdjacentTiles() {
+void Board::AddAdjacentTiles() {
 
     for (int i = 0; i < boardHeight; i++) {
         for (int j = 0; j < boardWidth; j++) {
@@ -243,7 +246,7 @@ void Board::FindAdjacentTiles() {
 
 void Board::RestartGame() {
     CleanAllTiles();
-    SetMines();
+    SetBoard();
 }
 
 void Board::CleanAllTiles() {
