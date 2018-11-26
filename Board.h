@@ -23,6 +23,7 @@ struct Board {
     void LoadTestTwo();
     void AddAdjacentTiles();
     bool BoardClick(sf::Vector2f mousePos, int clickType);
+    bool CheckAllTiles();
 
     //variables:
     vector<vector<Tile>> tiles;
@@ -34,10 +35,11 @@ struct Board {
     const int LEFT_CLICK = 0;
     const int RIGHT_CLICK = 1;
     sf::Sprite test1; sf::Sprite test2;
-    bool debugMode = false; bool gameOver = false; bool gameWon = true;
+    bool debugMode = false; bool gameOver = false; bool gameWon = false;
     int tileWidth = 32;
     int boardWidth = 0; int boardHeight = 0;
     int mineCount = 0; int currentMineCount = 0;
+    int testOneMines = 0; int testTwoMines = 0;
     map<string, sf::Texture> textures;
 };
 

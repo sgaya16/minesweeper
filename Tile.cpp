@@ -34,13 +34,14 @@ void Tile::TileIsMine() {
 
 void Tile::GetAdjacentMine() {
     queue <Tile *> Queue;
-    unordered_set <Tile *> visited;
+    //unordered_set <Tile *> visited;
 
     Queue.push(this);
 
     while (!Queue.empty()) {
         Tile *currTile = Queue.front();
-        visited.insert(currTile);
+        //visited.insert(currTile);
+        Queue.pop();
         int mineCount = 0;
 
         for (Tile *adjTile : currTile->adjacentTiles) {
@@ -53,8 +54,8 @@ void Tile::GetAdjacentMine() {
         if (mineCount == 0) {
 
             for (Tile *adjTile : currTile->adjacentTiles) {
-                const bool contains = visited.find(adjTile) != visited.end();
-                if (!contains) {
+                //const bool contains = visited.find(adjTile) != visited.end();
+                if (!adjTile -> isMine && !adjTile -> isClicked) {
                     Queue.push(adjTile);
                 }
             }
@@ -62,9 +63,10 @@ void Tile::GetAdjacentMine() {
 
         if (!currTile->isMine) {
             currTile->phase = REVEALED_TILE;
+            currTile -> isClicked = true;
         }
 
-        Queue.pop();
+        //Queue.pop();
     }
 }
 

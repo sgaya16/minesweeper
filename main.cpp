@@ -28,7 +28,7 @@ int main() {
             else if (event.type == sf::Event::MouseButtonPressed) {
                 //if the left mouse button is clicked
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    cout << "left button pressed" << endl;
+                    cout << "left button clicked" << endl;
                     mousePos = sf::Mouse::getPosition(window);
                     mouseFloat = sf::Vector2f(mousePos);
                     mineSweeper.BoardClick(mouseFloat, 0);

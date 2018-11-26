@@ -112,6 +112,7 @@ void Board::LoadTestOne() {
     ifstream testOne("boards/testboard.brd");
     string substr;
     int row = 0; int column = 0;
+    testOneMines = 0;
 
     if (!testOne.good()) {
         cout << "unable to load test 1" << endl;
@@ -122,10 +123,14 @@ void Board::LoadTestOne() {
         for (column = 0; column < 25; column++) {
             if (substr[column] == '1') {
                 tiles[row][column].TileIsMine();
+                testOneMines++;
             }
         }
         row++;
     }
+    mineCount = testOneMines;
+
+    UpdateMineCount();
 
     testOne.close();
 }
@@ -134,6 +139,7 @@ void Board::LoadTestTwo() {
     ifstream testTwo("boards/testboard2.brd");
     string substr;
     int row = 0; int column = 0;
+    testTwoMines = 0;
 
     if (!testTwo.good()) {
         cout << "unable to load test 1" << endl;
@@ -144,10 +150,14 @@ void Board::LoadTestTwo() {
         for (column = 0; column < 25; column++) {
             if (substr[column] == '1') {
                 tiles[row][column].TileIsMine();
+                testTwoMines++;
             }
         }
         row++;
     }
+    mineCount = testTwoMines;
+
+    UpdateMineCount();
 
     testTwo.close();
 }
@@ -251,7 +261,9 @@ void Board::AddAdjacentTiles() {
 void Board::RestartGame() {
     CleanAllTiles();
     SetBoard();
+    mineCount = 50;
     gameOver = false;
+    gameWon = false;
 }
 
 void Board::CleanAllTiles() {
@@ -263,6 +275,17 @@ void Board::CleanAllTiles() {
             tiles[i][j].isFlag = false;
         }
     }
+}
+
+bool Board::CheckAllTiles() {
+    for (int i = 0; i < boardHeight; i++) {
+        for (int j = 0; j < boardWidth; j++) {
+            if (!tiles[i][j].isMine && !tiles[i][j].isClicked) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 bool Board::BoardClick(sf::Vector2f mousePos, int clickType) {
@@ -295,6 +318,9 @@ bool Board::BoardClick(sf::Vector2f mousePos, int clickType) {
             LoadTestTwo();
             cout << "test 2 clicked" << endl;
         }
+        else if (CheckAllTiles() == true) {
+            gameWon = true;
+        }
     }
     return true;
 }
@@ -312,6 +338,9 @@ void Board::DrawAllTiles(sf::RenderWindow *window) {
 
     if (gameOver == true) {
         window->draw(loseButton);
+    }
+    else if (gameWon == true) {
+        window->draw(winButton);
     }
     else {
         window->draw(happyButton);
