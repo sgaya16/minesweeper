@@ -17,7 +17,7 @@ struct Tile {
     void GetAdjacentMine();
     bool TileClicked(int clickType);
     sf::Sprite* CurrentSprite();
-    void draw(float x, float y, sf::RenderWindow *window, bool debugMode);
+    void Draw(float x, float y, sf::RenderWindow *window, bool debugMode, bool gameOver);
 
     //variables:
     sf::Sprite hiddenTile;
@@ -36,7 +36,6 @@ struct Tile {
     bool isClicked = false;
     bool isMine = false;
     bool isFlag = false;
-    //bool adjDone = false;
     int adjMines = 0;
 
 };

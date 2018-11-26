@@ -74,7 +74,8 @@ bool Tile::TileClicked(int clickType) {
     if (clickType == LEFT_CLICK) {
         if (isMine == true) {
             phase = MINE;
-            cout << "Mine exploded!" << endl;
+            cout << "mine exploded!" << endl;
+            cout << "you lost!" << endl;
             return false;
         }
         else {
@@ -96,7 +97,6 @@ bool Tile::TileClicked(int clickType) {
 }
 
 
-
 sf::Sprite* Tile::CurrentSprite() {
     if (phase == HIDDEN_TILE) {
         return &hiddenTile;
@@ -112,8 +112,14 @@ sf::Sprite* Tile::CurrentSprite() {
     }
 }
 
-void Tile::draw(float x, float y, sf::RenderWindow* window, bool debugMode) {
+void Tile::Draw(float x, float y, sf::RenderWindow *window, bool debugMode, bool gameOver) {
        if (debugMode == true && isMine == true && isClicked == false) {
+           revealedTile.setPosition(x, y);
+           window->draw(revealedTile);
+           mine.setPosition(x, y);
+           window->draw(mine);
+       }
+       else if (gameOver == true && isMine == true) {
            revealedTile.setPosition(x, y);
            window->draw(revealedTile);
            mine.setPosition(x, y);
@@ -163,12 +169,13 @@ void Tile::draw(float x, float y, sf::RenderWindow* window, bool debugMode) {
                     }
                }
            }
-           else if (phase == MINE) {
-               revealedTile.setPosition(x, y);
-               window->draw(revealedTile);
-               mine.setPosition(x, y);
-               window->draw(mine);
-           }
+//           else if (phase == MINE) {
+//               revealedTile.setPosition(x, y);
+//               window->draw(revealedTile);
+//               mine.setPosition(x, y);
+//               window->draw(mine);
+//
+//           }
            else {
                hiddenTile.setPosition(x, y);
                window->draw(hiddenTile);
@@ -176,5 +183,4 @@ void Tile::draw(float x, float y, sf::RenderWindow* window, bool debugMode) {
                window->draw(flag);
            }
        }
-
 }

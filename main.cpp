@@ -42,7 +42,7 @@ int main() {
                 }
             }
 
-            window.clear();
+            window.clear(sf::Color::White);
             mineSweeper.DrawAllTiles(&window);
 
 

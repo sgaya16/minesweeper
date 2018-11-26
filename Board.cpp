@@ -69,7 +69,10 @@ Board::Board(int height, int width, int numMines) {
     happyButton.setPosition(11.5 * tileWidth, 16 * tileWidth);
 
     winButton.setTexture(textures["winFace"]);
+    winButton.setPosition(11.5 * tileWidth, 16 * tileWidth);
+
     loseButton.setTexture(textures["loseFace"]);
+    loseButton.setPosition(11.5 * tileWidth, 16 * tileWidth);
 
     test1.setTexture(textures["test1"]);
     test1.setPosition(18.5 * tileWidth, 16 * tileWidth);
@@ -161,6 +164,7 @@ void Board::UpdateMineCount() {
     }
 
     int updatedMineCount = mineCount - currentFlagCount;
+    currentMineCount = updatedMineCount;
 
     int placeThree = updatedMineCount % 10;
     updatedMineCount /= 10;
@@ -247,6 +251,7 @@ void Board::AddAdjacentTiles() {
 void Board::RestartGame() {
     CleanAllTiles();
     SetBoard();
+    gameOver = false;
 }
 
 void Board::CleanAllTiles() {
@@ -265,14 +270,16 @@ bool Board::BoardClick(sf::Vector2f mousePos, int clickType) {
     for (int i = 0; i < boardHeight; i++) {
         for (int j = 0; j < boardWidth; j++) {
             if (tiles[i][j].CurrentSprite()->getGlobalBounds().contains(mousePos)) {
-                tiles[i][j].TileClicked(clickType);
+               if (tiles[i][j].TileClicked(clickType) == false) {
+                   gameOver = true;
+               }
             }
         }
     }
     if (clickType == LEFT_CLICK) {
         if (debugButton.getGlobalBounds().contains(mousePos)) {
             debugMode = !debugMode;
-            cout << "debug button clicked restarted" << endl;
+            cout << "debug button clicked" << endl;
         }
         else if (happyButton.getGlobalBounds().contains(mousePos)) {
             RestartGame();
@@ -298,14 +305,21 @@ void Board::DrawAllTiles(sf::RenderWindow *window) {
         for (int j = 0; j < boardWidth; j++) {
             float y = i * tileWidth * 1.0f;
             float x = j * tileWidth * 1.0f;
-            tiles[i][j].draw(x,y, window, debugMode);
+            tiles[i][j].Draw(x,y, window, debugMode, gameOver);
         }
     }
     UpdateMineCount();
+
+    if (gameOver == true) {
+        window->draw(loseButton);
+    }
+    else {
+        window->draw(happyButton);
+    }
+
     window->draw(place1);
     window->draw(place2);
     window->draw(place3);
-    window->draw(happyButton);
     window->draw(debugButton);
     window->draw(test1);
     window->draw(test2);

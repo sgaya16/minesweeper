@@ -34,10 +34,10 @@ struct Board {
     const int LEFT_CLICK = 0;
     const int RIGHT_CLICK = 1;
     sf::Sprite test1; sf::Sprite test2;
-    bool debugMode = false;
+    bool debugMode = false; bool gameOver = false; bool gameWon = true;
     int tileWidth = 32;
     int boardWidth = 0; int boardHeight = 0;
-    int mineCount = 0;
+    int mineCount = 0; int currentMineCount = 0;
     map<string, sf::Texture> textures;
 };
 
