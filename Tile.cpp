@@ -74,7 +74,10 @@ bool Tile::TileClicked(int clickType) {
     isClicked = true;
 
     if (clickType == LEFT_CLICK) {
-        if (isMine == true) {
+        if (isFlag == true) {
+            return true;
+        }
+        else if (isMine == true) {
             phase = MINE;
             cout << "mine exploded!" << endl;
             cout << "you lost!" << endl;
@@ -171,13 +174,6 @@ void Tile::Draw(float x, float y, sf::RenderWindow *window, bool debugMode, bool
                     }
                }
            }
-//           else if (phase == MINE) {
-//               revealedTile.setPosition(x, y);
-//               window->draw(revealedTile);
-//               mine.setPosition(x, y);
-//               window->draw(mine);
-//
-//           }
            else {
                hiddenTile.setPosition(x, y);
                window->draw(hiddenTile);
