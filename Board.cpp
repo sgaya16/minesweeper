@@ -290,36 +290,41 @@ bool Board::CheckAllTiles() {
 
 bool Board::BoardClick(sf::Vector2f mousePos, int clickType) {
 
-    for (int i = 0; i < boardHeight; i++) {
-        for (int j = 0; j < boardWidth; j++) {
-            if (tiles[i][j].CurrentSprite()->getGlobalBounds().contains(mousePos)) {
-               if (tiles[i][j].TileClicked(clickType) == false) {
-                   gameOver = true;
-               }
+    if (gameOver == false && !gameWon == true) {
+        for (int i = 0; i < boardHeight; i++) {
+            for (int j = 0; j < boardWidth; j++) {
+                if (tiles[i][j].CurrentSprite()->getGlobalBounds().contains(mousePos)) {
+                    if (tiles[i][j].TileClicked(clickType) == false) {
+                        gameOver = true;
+                    }
+                }
             }
         }
     }
+
     if (clickType == LEFT_CLICK) {
-        if (debugButton.getGlobalBounds().contains(mousePos)) {
-            debugMode = !debugMode;
-            cout << "debug button clicked" << endl;
+        if (gameOver == false && gameWon == false) {
+            if (debugButton.getGlobalBounds().contains(mousePos)) {
+                debugMode = !debugMode;
+                cout << "debug button clicked" << endl;
+            }
+            else if (test1.getGlobalBounds().contains(mousePos)) {
+                CleanAllTiles();
+                LoadTestOne();
+                cout << "test 1 clicked" << endl;
+            }
+            else if ((test2.getGlobalBounds().contains(mousePos))) {
+                CleanAllTiles();
+                LoadTestTwo();
+                cout << "test 2 clicked" << endl;
+            }
+            else if (CheckAllTiles() == true) {
+                gameWon = true;
+            }
         }
-        else if (happyButton.getGlobalBounds().contains(mousePos)) {
+        if (happyButton.getGlobalBounds().contains(mousePos)) {
             RestartGame();
             cout << "game restarted" << endl;
-        }
-        else if (test1.getGlobalBounds().contains(mousePos)) {
-            CleanAllTiles();
-            LoadTestOne();
-            cout << "test 1 clicked" << endl;
-        }
-        else if ((test2.getGlobalBounds().contains(mousePos))) {
-            CleanAllTiles();
-            LoadTestTwo();
-            cout << "test 2 clicked" << endl;
-        }
-        else if (CheckAllTiles() == true) {
-            gameWon = true;
         }
     }
     return true;
@@ -327,14 +332,16 @@ bool Board::BoardClick(sf::Vector2f mousePos, int clickType) {
 
 
 void Board::DrawAllTiles(sf::RenderWindow *window) {
+
     for (int i = 0; i < boardHeight; i++) {
         for (int j = 0; j < boardWidth; j++) {
             float y = i * tileWidth * 1.0f;
             float x = j * tileWidth * 1.0f;
-            tiles[i][j].Draw(x,y, window, debugMode, gameOver);
+            tiles[i][j].Draw(x, y, window, debugMode, gameOver);
         }
     }
     UpdateMineCount();
+
 
     if (gameOver == true) {
         window->draw(loseButton);
