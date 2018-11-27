@@ -320,6 +320,13 @@ bool Board::BoardClick(sf::Vector2f mousePos, int clickType) {
             }
             else if (CheckAllTiles() == true) {
                 gameWon = true;
+                for (int i = 0; i < boardHeight; i++) {
+                    for (int j = 0; j < boardWidth; j++) {
+                        if (tiles[i][j].isMine) {
+                            tiles[i][j].phase = 4;
+                        }
+                    }
+                }
             }
         }
         if (happyButton.getGlobalBounds().contains(mousePos)) {

@@ -32,6 +32,7 @@ struct Tile {
     const int REVEALED_TILE = 1;
     const int FLAG = 2;
     const int MINE = 3;
+    const int GAME_WON = 4;
     const int LEFT_CLICK = 0; const int RIGHT_CLICK = 1;
     bool isClicked = false;
     bool isMine = false;
