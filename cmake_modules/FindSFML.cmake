@@ -1,5 +1,3 @@
-
-
 # This script locates the SFML library
 # ------------------------------------
 #

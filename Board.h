@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <fstream>
 #include <vector>
 #include <map>
 #include <random>

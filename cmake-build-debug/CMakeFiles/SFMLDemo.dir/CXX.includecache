@@ -7,6 +7,12 @@
 #IncludeRegexTransform: 
 
 /Users/saragaya/CLionProjects/SFMLDemo/Tile.cpp
+iostream
+-
+Tile.h
+/Users/saragaya/CLionProjects/SFMLDemo/Tile.h
+
+/Users/saragaya/CLionProjects/SFMLDemo/Tile.h
 SFML/Graphics.hpp
 -
 iostream
@@ -22,19 +28,5 @@ random
 queue
 -
 unordered_set
--
-Tile.h
-/Users/saragaya/CLionProjects/SFMLDemo/Tile.h
-
-/Users/saragaya/CLionProjects/SFMLDemo/Tile.h
-SFML/Graphics.hpp
--
-iostream
--
-vector
--
-map
--
-string
 -
 

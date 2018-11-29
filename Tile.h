@@ -1,9 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <vector>
 #include <map>
+#include <vector>
 #include <string>
+#include <random>
+#include <queue>
+#include <unordered_set>
 using namespace std;
 
 struct Tile {

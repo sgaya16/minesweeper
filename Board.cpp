@@ -1,11 +1,5 @@
 #include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
-#include <map>
-#include <random>
 #include "Board.h"
-#include <SFML/Graphics.hpp>
 using namespace std;
 
 mt19937 mto(time(0));

@@ -1,11 +1,4 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
-#include <map>
-#include <vector>
-#include <string>
-#include <random>
-#include <queue>
-#include <unordered_set>
 #include "Tile.h"
 using namespace std;
 
@@ -126,15 +119,15 @@ void Tile::Draw(float x, float y, sf::RenderWindow *window, bool debugMode, bool
         flag.setPosition(x, y);
         window->draw(flag);
     }
-    else if (debugMode == true && isMine == true && isClicked == false) {
-           revealedTile.setPosition(x, y);
-           window->draw(revealedTile);
-           mine.setPosition(x, y);
-           window->draw(mine);
-    }
     else if (gameOver == true && isMine == true) {
-           revealedTile.setPosition(x, y);
-           window->draw(revealedTile);
+        revealedTile.setPosition(x, y);
+        window->draw(revealedTile);
+        mine.setPosition(x, y);
+        window->draw(mine);
+    }
+    else if (debugMode == true && isMine == true && isClicked == false) {
+           hiddenTile.setPosition(x, y);
+           window->draw(hiddenTile);
            mine.setPosition(x, y);
            window->draw(mine);
     }
